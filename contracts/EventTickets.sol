@@ -140,9 +140,10 @@ contract EventTickets {
             - emit the appropriate event
     */
     function endSale() external onlyOwner {
+        uint contractBalance = address(this).balance;
         myEvent.isOpen = false;
-        owner.transfer(address(this).balance);
-        emit LogEndSale(owner, address(this).balance);
+        owner.transfer(contractBalance);
+        emit LogEndSale(owner, contractBalance);
     }
     
 }
