@@ -139,9 +139,11 @@ contract EventTicketsV2 {
         This function takes one parameter, an event ID
         This function returns a uint, the number of tickets that the msg.sender has purchased.
     */
+    
     function getBuyerNumberTickets(uint _eventId) public view returns (uint) {
         return events[_eventId].buyers[msg.sender];
     }
+
 
     /*
         Define a function called endSale()
