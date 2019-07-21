@@ -65,6 +65,10 @@ contract EventTicketsV2 {
             - emit the appropriate event
             - return the event's ID
     */
+    constructor() public {
+        owner = msg.sender;
+    }
+    
     function addEvent(string memory _description, string memory _websiteUrl, uint _nTicketsForSale) public onlyOwner returns (uint) {
         events[idGenerator] = Event(_description, _websiteUrl, _nTicketsForSale, 0, true);
         idGenerator++;
@@ -139,11 +143,9 @@ contract EventTicketsV2 {
         This function takes one parameter, an event ID
         This function returns a uint, the number of tickets that the msg.sender has purchased.
     */
-    
     function getBuyerNumberTickets(uint _eventId) public view returns (uint) {
         return events[_eventId].buyers[msg.sender];
     }
-
 
     /*
         Define a function called endSale()
