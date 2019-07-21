@@ -159,6 +159,6 @@ contract EventTicketsV2 {
     function endSale(uint _eventId) public onlyOwner {
         events[_eventId].isOpen = false;
         msg.sender.transfer(events[_eventId].sales * PRICE_TICKET);
-        emit LogEndSale(owner, _eventId, events[_eventId].sales * PRICE_TICKET);
+        emit LogEndSale(owner, events[_eventId].sales * PRICE_TICKET, _eventId);
     }
 }
