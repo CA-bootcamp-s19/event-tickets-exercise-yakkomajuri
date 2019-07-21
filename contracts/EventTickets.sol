@@ -11,7 +11,7 @@ contract EventTickets {
         Use the appropriate keyword to create an associated getter function.
         Use the appropriate keyword to allow ether transfers.
      */
-     address payable public owner;
+    address payable public owner;
 
     uint   TICKET_PRICE = 100 wei;
 
@@ -61,6 +61,7 @@ contract EventTickets {
         myEvent.website = _websiteUrl;
         myEvent.totalTickets = _nTicketsForSale;
         myEvent.isOpen = true;
+        myEvent.sales = 0;
     }
 
     /*
@@ -102,9 +103,9 @@ contract EventTickets {
     */
     function buyTickets(uint _ticketsToBuy) external payable {
         uint amountPayable = _ticketsToBuy * TICKET_PRICE;
-        require(myEvent.isOpen);
-        require(msg.value >= amountPayable);
-        require(_ticketsToBuy > (myEvent.totalTickets - myEvent.sales));
+        require(myEvent.isOpen, "event is not open");
+        require(msg.value >= amountPayable, "msg.value too low");
+        require(_ticketsToBuy <= (myEvent.totalTickets - myEvent.sales), "not enought tickets left");
         myEvent.buyers[msg.sender] += _ticketsToBuy;
         myEvent.sales += _ticketsToBuy;
         msg.sender.transfer(msg.value - amountPayable);
