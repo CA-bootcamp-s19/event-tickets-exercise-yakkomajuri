@@ -108,7 +108,7 @@ contract EventTicketsV2 {
     function buyTickets(uint _eventId, uint _numberOfTickets) public payable {
         Event storage selectedEvent = events[_eventId];
         require(selectedEvent.isOpen);
-        require(_numberOfTickets >= (selectedEvent.totalTickets - selectedEvent.sales));
+        require(_numberOfTickets <= (selectedEvent.totalTickets - selectedEvent.sales));
         uint totalCost = PRICE_TICKET * _numberOfTickets;
         require(msg.value >= totalCost);
         selectedEvent.buyers[msg.sender] += _numberOfTickets;
